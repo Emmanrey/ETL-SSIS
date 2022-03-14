@@ -2,6 +2,22 @@
 
 Este repositorio contiene varios ETL's realizados en Visual Studio 2019 utilizando los paquetes **SQL Server Integration Services**.
 
+## Contexto
+
+Trabaje en un dataset de insumos, donde fui utilizando diferentes herramientas como:
+
+- Data Conversion
+- Derived Column
+- Lookup
+- Sort
+- Union All
+- OLE DB Source
+- OLE DB Destination
+- Excel Source
+- Excel Destination
+- Flat File Source
+- Flat File Destination
+
 ## Estructura de la base de datos
 
 <table>
@@ -26,6 +42,6 @@ Este repositorio contiene varios ETL's realizados en Visual Studio 2019 utilizan
 
 ## Herramientas necesarias
 
-- [ ] [Visual Studio](https://visualstudio.microsoft.com/vs/older-downloads/)
+- [x] [Visual Studio](https://visualstudio.microsoft.com/vs/older-downloads/)
 
-- [ ] [SQL Server](https://www.microsoft.com/es-es/sql-server/sql-server-2019)
+- [x] [SQL Server](https://www.microsoft.com/es-es/sql-server/sql-server-2019)
