@@ -1,0 +1,228 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/8/2021 10:56:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-HNDDQS6"
+  DTS:CreatorName="DESKTOP-HNDDQS6\Ema"
+  DTS:DTSID="{A89A208F-07D4-4449-B003-ABFDC40682B5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.170"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Ejercicio 9"
+  DTS:PackageType="5"
+  DTS:VersionBuild="45"
+  DTS:VersionGUID="{976D0A25-4126-4F7A-8628-71E8D1734F19}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-HNDDQS6.SSIS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A5EE1E8B-EEAB-4E5C-AEBA-29E8E516DD0A}"
+      DTS:ObjectName="DESKTOP-HNDDQS6.SSIS">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::Ruta] +  @[User::Modulo]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-HNDDQS6;Initial Catalog=SSIS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7AD9D3F8-2C53-4716-845E-6BFF87181C2B}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Modulo">
+      <DTS:VariableValue
+        DTS:DataType="8">Ejercicio9.dtsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CB7B112E-281B-4A7B-9844-F55BCC294AE3}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[System::PackageName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Nombre_P">
+      <DTS:VariableValue
+        DTS:DataType="8">Ejercicio 9</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{040A57A9-D6D5-47BE-B097-D83DF09E53D6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Ruta">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Ema\source\repos\Emmanuel Reynoso\Emmanuel Reynoso\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Creacion de tabla"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Para completar la actividad 2 que es la creacion de la tabla INSUMO"
+      DTS:DTSID="{6CCBE952-AEB3-45E8-9BA3-2CD141653028}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Creacion de tabla"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A5EE1E8B-EEAB-4E5C-AEBA-29E8E516DD0A}"
+          SQLTask:SqlStatementSource="IF OBJECT_ID('LOG_BI', 'U') IS NULL&#xA;CREATE TABLE LOG_BI(&#xA; LOG_ID NUMERIC(10,0) PRIMARY KEY,&#xA; MODULO VARCHAR(50),&#xA; DESCRIPCION VARCHAR(50)&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LOG FINAL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{c5d923f2-9976-489e-bfa7-411229849d9b}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LOG FINAL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0"
+        DTS:LoggingMode="1" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A5EE1E8B-EEAB-4E5C-AEBA-29E8E516DD0A}"
+          SQLTask:SqlStatementSource="INSERT INTO LOG_BI (LOG_ID, MODULO, DESCRIPCION)&#xA;VALUES (&#xA;(SELECT COUNT(*) FROM LOG_BI) + 1, &#xA;?, &#xA;'FINAL DE PAQUETE ' + CONVERT(VARCHAR(50),GETDATE(),0) &#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Nombre_P"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LOG INICIO"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{c5cc7c9f-806f-49ef-938f-df5fa401a5a0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LOG INICIO"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2019; © 2019 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0"
+        DTS:LoggingMode="1" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A5EE1E8B-EEAB-4E5C-AEBA-29E8E516DD0A}"
+          SQLTask:SqlStatementSource="INSERT INTO LOG_BI&#xA;                         (LOG_ID, MODULO, DESCRIPCION)&#xA;VALUES        (&#xA;(SELECT COUNT(*) FROM LOG_BI) + 1, &#xA;?, &#xA;'INICIO DE PAQUETE: ' + CONVERT(VARCHAR(50),GETDATE(),0) &#xA;&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Nombre_P"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{12DCDC87-8898-4A87-A9D6-B800893AC2C1}"
+      DTS:From="Package\LOG INICIO"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Creacion de tabla" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C8E0911E-168A-46CF-9EDA-326C363070FB}"
+      DTS:From="Package\Creacion de tabla"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\LOG FINAL" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="8">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Creacion de tabla"
+          TopLeft="271,115" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\LOG FINAL"
+          TopLeft="287,182" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\LOG INICIO"
+          TopLeft="280,45" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="351.5,87">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="355,157">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25"
+              Start="0,0"
+              End="0,17.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
